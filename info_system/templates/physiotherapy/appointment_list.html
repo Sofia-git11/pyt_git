@@ -1,0 +1,38 @@
+{% extends 'physiotherapy/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Список записей на процедуры</h2>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Пациент</th>
+                <th>Процедура</th>
+                <th>Врач</th>
+                <th>Кабинет</th>
+                <th>Дата и время</th>
+                <th>Статус</th>
+                <th>Примечания</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+            <tr>
+                <td>{{ appointment.patient.last_name }} {{ appointment.patient.first_name|slice:":1" }}.{{ appointment.patient.middle_name|slice:":1" }}.</td>
+                <td>{{ appointment.procedure.name }}</td>
+                <td>{{ appointment.doctor.user.get_full_name }}</td>
+                <td>{{ appointment.room.number }}</td>
+                <td>{{ appointment.appointment_date|date:"d.m.Y H:i" }}</td>
+                <td>{{ appointment.get_status_display }}</td>
+                <td>{{ appointment.notes|default:"-" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" class="text-center">Записей нет.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

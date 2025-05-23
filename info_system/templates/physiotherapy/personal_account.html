@@ -1,0 +1,83 @@
+{% extends 'physiotherapy/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Личный кабинет</h2>
+    
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Последние пациенты</h5>
+                </div>
+                <div class="card-body">
+                    {% if recent_data.patients %}
+                        <div class="list-group">
+                            {% for patient in recent_data.patients %}
+                                <a href="{% url 'patient_detail' patient.id %}" class="list-group-item list-group-item-action">
+                                    {{ patient }} ({{ patient.registration_date }})
+                                </a>
+                            {% endfor %}
+                        </div>
+                        <a href="{% url 'patient_list' %}" class="btn btn-sm btn-link mt-2">Все пациенты</a>
+                    {% else %}
+                        <p class="text-muted">Нет данных о пациентах</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>Ближайшие приемы</h5>
+                </div>
+                <div class="card-body">
+                    {% if recent_data.appointments %}
+                        <div class="list-group">
+                            {% for appointment in recent_data.appointments %}
+                                <div class="list-group-item">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h6 class="mb-1">{{ appointment.patient }}</h6>
+                                        <small>{{ appointment.appointment_date|date:"d.m.Y H:i" }}</small>
+                                    </div>
+                                    <p class="mb-1">{{ appointment.procedure }}</p>
+                                    <small class="text-muted">Кабинет: {{ appointment.room }}</small>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <a href="{% url 'appointment_list' %}" class="btn btn-sm btn-link mt-2">Все записи</a>
+                    {% else %}
+                        <p class="text-muted">Нет записей на прием</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <h5>Быстрые действия</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 mb-2">
+                    <a href="{% url 'patient_create' %}" class="btn btn-primary w-100">
+                        <i class="bi bi-person-plus"></i> Добавить пациента
+                    </a>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <a href="{% url 'appointment_create' %}" class="btn btn-primary w-100">
+                        <i class="bi bi-calendar-plus"></i> Новая запись
+                    </a>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <a href="{% url 'procedure_list' %}" class="btn btn-primary w-100">
+                        <i class="bi bi-heart-pulse"></i> Процедуры
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

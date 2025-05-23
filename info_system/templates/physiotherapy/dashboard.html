@@ -1,0 +1,55 @@
+{% extends 'physiotherapy/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Добро пожаловать в систему учета физиотерапии</h2>
+            <p class="lead">Используйте панель навигации для доступа к разделам системы.</p>
+            
+            <div class="row mt-4">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Пациенты</h5>
+                            <p class="card-text">Всего пациентов: {{ patient_count }}</p>
+                            <a href="{% url 'patient_list' %}" class="btn btn-primary">Перейти</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Записи</h5>
+                            <p class="card-text">Всего записей: {{ appointment_count }}</p>
+                            <a href="{% url 'appointment_list' %}" class="btn btn-primary">Перейти</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Быстрые действия</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'personal_account' %}" class="btn btn-outline-primary">
+                            <i class="bi bi-person-lines-fill"></i> Личный кабинет
+                        </a>
+                        <a href="{% url 'patient_create' %}" class="btn btn-outline-success">
+                            <i class="bi bi-person-plus"></i> Добавить пациента
+                        </a>
+                        <a href="{% url 'appointment_create' %}" class="btn btn-outline-success">
+                            <i class="bi bi-calendar-plus"></i> Новая запись
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

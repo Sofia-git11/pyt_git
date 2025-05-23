@@ -1,0 +1,46 @@
+{% extends 'physiotherapy/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Пациент: {{ patient.last_name }} {{ patient.first_name }} {{ patient.middle_name }}</h2>
+
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <th>Дата рождения</th>
+                <td>{{ patient.birth_date }}</td>
+            </tr>
+            <tr>
+                <th>Пол</th>
+                <td>{{ patient.get_gender_display }}</td>
+            </tr>
+            <tr>
+                <th>Адрес</th>
+                <td>{{ patient.address|default:"-" }}</td>
+            </tr>
+            <tr>
+                <th>Телефон</th>
+                <td>{{ patient.phone }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ patient.email|default:"-" }}</td>
+            </tr>
+            <tr>
+                <th>Страховой номер</th>
+                <td>{{ patient.insurance_number|default:"-" }}</td>
+            </tr>
+            <tr>
+                <th>Дата регистрации</th>
+                <td>{{ patient.registration_date }}</td>
+            </tr>
+            <tr>
+                <th>Примечания</th>
+                <td>{{ patient.notes|linebreaksbr|default:"-" }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{% url 'patient_list' %}" class="btn btn-secondary">Назад к списку пациентов</a>
+</div>
+{% endblock %}

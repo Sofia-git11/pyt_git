@@ -1,0 +1,35 @@
+{% extends 'physiotherapy/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Список пациентов</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ФИО</th>
+                <th>Дата рождения</th>
+                <th>Дата регистрации</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for patient in patients %}
+            <tr>
+                <td>{{ patient.last_name }} {{ patient.first_name|slice:":1" }}.{{ patient.middle_name|slice:":1" }}.</td>
+                <td>{{ patient.birth_date }}</td>
+                <td>{{ patient.registration_date }}</td>
+                <td>
+                    <a href="{% url 'patient_detail' patient.pk %}">Подробнее</a> |
+                    <a href="{% url 'patient_update' patient.pk %}">Редактировать</a> |
+                    <a href="{% url 'patient_delete' patient.pk %}">Удалить</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Пациенты не найдены.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
